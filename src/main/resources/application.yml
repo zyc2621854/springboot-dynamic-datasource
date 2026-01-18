@@ -1,0 +1,60 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: springboot-dynamic-datasource
+
+  # 数据源配置
+  datasource:
+    # MySQL 数据源
+    mysql:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://192.168.56.2:3306/gulimall_pms?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
+      username: root
+      password: root
+      # HikariCP 连接池配置
+      hikari:
+        minimum-idle: 5
+        maximum-pool-size: 20
+        connection-timeout: 30000
+        idle-timeout: 600000
+        max-lifetime: 1800000
+
+    # Oracle 数据源
+    oracle:
+      driver-class-name: oracle.jdbc.OracleDriver
+      jdbc-url: jdbc:oracle:thin:@192.168.56.2:1521:ORCLCDB
+      username: system
+      password: zqBS5WvSGzw=1
+      # HikariCP 连接池配置
+      hikari:
+        minimum-idle: 5
+        maximum-pool-size: 20
+        connection-timeout: 30000
+        idle-timeout: 600000
+        max-lifetime: 1800000
+
+# MyBatis Plus 配置
+mybatis-plus:
+  # 实体类包路径
+  type-aliases-package: com.example.datasource.entity
+  configuration:
+    # 驼峰转下划线
+    map-underscore-to-camel-case: true
+    # 日志输出
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # 主键类型 (AUTO 自增, INPUT 输入, ASSIGN_ID 雪花算法, ASSIGN_UUID UUID)
+      id-type: auto
+      # 逻辑删除字段
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# 日志配置
+logging:
+  level:
+    com.example.datasource: debug
+    com.baomidou.mybatisplus: debug
